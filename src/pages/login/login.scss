@@ -1,0 +1,57 @@
+
+@import '../../styles/common/variable';
+
+.subtitle {
+  color: $subtitle-color;
+}
+
+.title {
+  color: $secondary-color;
+}
+
+.login-container {
+  display: flex; /* Enable flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height to center vertically */
+  width: 100%; /* Ensure the parent container spans the full width */
+}
+
+.login-form {
+  width: 100%; /* Make the form take up the full width of its container */
+  max-width: 500px; /* Set the maximum width of the form */
+  padding: 40px;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  background-color: #fff; /* Optional: Add a background color for better visibility */
+}
+
+.login-container .ant-btn {
+  width: 100%;
+  background-color: $primary-color;
+  color: #fff !important; /* Ensure text color is consistent */
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $primary-color;
+    color: #fff !important; /* Ensure text color is consistent in all states */
+  }
+}
+
+.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  background: $primary-color !important; // Use primary color for background
+  border-color: $primary-color !important;
+}
+
+.register-prompt {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.register-link {
+  color: $primary-color;
+  font-weight: bold;
+  cursor: pointer;
+}
