@@ -12,7 +12,7 @@ Mark as Completed: Track completed tasks.
 Search: Filter tasks by title.
 View Filtering: Toggle between viewing all tasks, important tasks, or completed tasks.
 
-Dependancies
+Dependancies: 
 npm i sass,
 npm i react-router-dom,
 npm i @ant-design/icons,
