@@ -30,5 +30,15 @@
 }
 
 .ant-btn-primary{
-  background-color: $primary-color;
+  background-color: $primary-color !important;
+  color: #fff !important;
+  border-color: $primary-color !important;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $primary-color !important;
+    border-color: $primary-color !important;
+  }
 }
+
