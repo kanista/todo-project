@@ -10,10 +10,18 @@
   background-color: $menu-background-color !important ;
 }
 
-body{
-  margin: 0;
+.dashboard-title button{
+  width: 100px;
+}
+.blinking-badge .ant-badge-dot {
+  animation: blink 1s ;
 }
 
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
 
 .search-container ::placeholder {
      color: white;
@@ -37,8 +45,8 @@ body{
   color: white;
 }
 
-.ant-layout-content .dashboard-container{
-  height: 100vh;
+.dashboard-container.ant-layout-content{
+  height: 100vh !important;
 }
 //.ant-layout-content{
 //  height: 100vh;
@@ -137,19 +145,8 @@ body{
 
 }
 
-.dashboard-container .ant-btn {
-  margin-left: auto;
-  background-color: $primary-color;
-  color: #fff !important;
-  border-color: $primary-color;
 
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: $primary-color;
-    border-color: $primary-color;
-  }
-}
+
 .dashboard-title {
   display: flex;
   justify-content: space-between;
@@ -188,7 +185,5 @@ body{
   {
     background-color: $menu-background-color !important;
   }
-
-
 }
 

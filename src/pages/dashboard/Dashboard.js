@@ -1,11 +1,20 @@
 import TaskModal from '../../components/taskModal/TaskModal';
-import {Layout, Menu, Button, Input, Form, Avatar, Empty} from 'antd';
+import {Layout, Menu, Button, Input, Form, Avatar, Empty, Badge} from 'antd';
 import './Dashboard.scss';
 import { useState, useEffect } from 'react';
 import TaskList from '../../components/taskList/TaskList';
-import {MailOutlined, SearchOutlined, UserOutlined} from "@ant-design/icons";
+import Notifications from '../../components/notification/Notfications';
+import { MailOutlined, SearchOutlined, UserOutlined} from "@ant-design/icons";
 
 const { Content, Sider } = Layout;
+
+// const menuItems = [
+//     { key: 'My Day', label: 'My Day' },
+//     { key: 'Important', label: 'Important' },
+//     { key: 'Completed', label: 'Completed' },
+//     { key: 'Notification', label: 'Notification' },
+// ];
+
 
 const Dashboard = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -16,6 +25,9 @@ const Dashboard = () => {
     const [showCompleted, setShowCompleted] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedMenu, setSelectedMenu] = useState('My Day'); // Default selected menu
+    const [hasNotifications, setHasNotifications] = useState(false);
+    const [isNotificationViewed, setIsNotificationViewed] = useState(false); // Track if the user has viewed notifications
+
 
     const [user, setUser] = useState({ name: '', email: '' });
 
@@ -85,7 +97,11 @@ const Dashboard = () => {
     const completedTasks = filteredTasks.filter(task => task.completed);
 
     const handleMenuClick = (menuKey) => {
-        setSelectedMenu(menuKey); // Update the selected menu item
+        setSelectedMenu(menuKey);
+
+        if (menuKey === 'Notification') {
+            setIsNotificationViewed(true); // Clear the notification dot when the user views notifications
+        }
     };
 
     const handleDeleteTask = (taskId) =>
@@ -103,6 +119,33 @@ const Dashboard = () => {
             task.id === taskId ? { ...task, isImportant: !task.isImportant } : task
         ));
     };
+
+    const handleNotificationsViewed = (hasNewNotifications) => {
+        setHasNotifications(hasNewNotifications); // Show dot based on new notifications
+        console.log(hasNewNotifications);
+        if (!hasNewNotifications) {
+            setIsNotificationViewed(true); // User viewed the notification
+            console.log(hasNewNotifications);
+        }
+    };
+
+
+    useEffect(() => {
+        if (window.Notification) {
+            if (Notification.permission === 'default') {
+                Notification.requestPermission().then(permission => {
+                    if (permission !== 'granted') {
+                        console.warn('Notification permission denied.');
+                    }
+                });
+            } else if (Notification.permission === 'denied') {
+                console.warn('Notification permission has been blocked.');
+            }
+        }
+    }, []);
+
+    console.log('Has notifications:', hasNotifications);
+    console.log('Is notification viewed:', isNotificationViewed);
 
     return (
         <>
@@ -158,11 +201,20 @@ const Dashboard = () => {
                             selectedKeys={[selectedMenu]}
                             mode="inline"
                             onClick={(e) => handleMenuClick(e.key)}
+                            // items={menuItems}
                         >
                             <Menu.Item key="My Day">My Day</Menu.Item>
                             <Menu.Item key="Important">Important</Menu.Item>
                             <Menu.Item key="Completed">Completed</Menu.Item>
+                            <Menu.Item key="Notification">
+                                Notification
+                                {hasNotifications && !isNotificationViewed && (
+                                    <Badge dot offset={[5, 0]} style={{ marginLeft: 10 }} />
+                                )}
+                            </Menu.Item>
+
                         </Menu>
+
                     </div>
                 </Sider>
 
@@ -178,19 +230,23 @@ const Dashboard = () => {
                             </Button>
                         </div>
 
-                        {filteredTasks.length > 0 ? (
-                            <TaskList
-                                tasks={{ incompleteTasks, completedTasks }}
-                                onEdit={handleEditTask}
-                                onDelete={handleDeleteTask}
-                                onToggleComplete={handleToggleComplete}
-                                onToggleImportant={handleToggleImportant}
-                                showCompleted={showCompleted}
-                                selectedMenu={selectedMenu}
-                                onToggleCompletedVisibility={() => setShowCompleted(!showCompleted)}
-                            />
+                        {selectedMenu === 'Notification' ? (
+                            <Notifications tasks={tasks} onNotificationsViewed={handleNotificationsViewed} />
                         ) : (
-                            <Empty description="No tasks found" />
+                            filteredTasks.length > 0 ? (
+                                <TaskList
+                                    tasks={{ incompleteTasks, completedTasks }}
+                                    onEdit={handleEditTask}
+                                    onDelete={handleDeleteTask}
+                                    onToggleComplete={handleToggleComplete}
+                                    onToggleImportant={handleToggleImportant}
+                                    showCompleted={showCompleted}
+                                    selectedMenu={selectedMenu}
+                                    onToggleCompletedVisibility={() => setShowCompleted(!showCompleted)}
+                                />
+                            ) : (
+                                <Empty description="No tasks found" />
+                            )
                         )}
 
                         <TaskModal

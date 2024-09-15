@@ -26,24 +26,6 @@
   background-color: #fff;
 }
 
-.login-container .ant-btn {
-  width: 100%;
-  background-color: $primary-color;
-  color: #fff !important;
-
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: $primary-color;
-    color: #fff !important;
-  }
-}
-
-.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
-  background: $primary-color !important;
-  border-color: $primary-color !important;
-}
-
 .register-prompt {
   text-align: center;
   margin-top: 20px;

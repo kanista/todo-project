@@ -23,19 +23,6 @@ const TaskModal = ({ isModalOpen, handleCancel, handleAddTask, editingTask, form
     const handleSliderChange = (value) => {
         setPercent(value);
     };
-    const increase = () => {
-        setPercent((prevPercent) => {
-            const newPercent = prevPercent + 10;
-            return newPercent > 100 ? 100 : newPercent;
-        });
-    };
-
-    const decline = () => {
-        setPercent((prevPercent) => {
-            const newPercent = prevPercent - 10;
-            return newPercent < 0 ? 0 : newPercent;
-        });
-    };
 
     useEffect(() => {
         if (editingTask) {

@@ -66,7 +66,7 @@ const Register = () => {
                         },
                     ]}
                 >
-                    <Input type="password" placeholder="........" />
+                    <Input.Password placeholder="......" />
                 </Form.Item>
 
                 <Form.Item
@@ -80,11 +80,11 @@ const Register = () => {
                         },
                     ]}
                 >
-                    <Input type="password" placeholder="........" />
+                    <Input.Password placeholder="......" />
                 </Form.Item>
 
                 <Form.Item>
-                    <Button htmlType="submit">
+                    <Button type="default" htmlType="submit">
                         Register
                     </Button>
                 </Form.Item>

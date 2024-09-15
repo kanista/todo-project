@@ -10,3 +10,37 @@ $menu-background-color: #0C111D;
 
 $border-radius: 5px;
 $border-color: #ccc;
+
+body{
+  margin: 0;
+  //background-color: #ECEEF1;
+}
+.ant-btn-sm.ant-btn-default {
+  background-color: white !important;
+  color: $primary-color !important;
+}
+
+.ant-btn,.ant-btn-primary{
+  background-color: $primary-color !important;
+  color: #fff !important;
+  border-color: $primary-color;
+  width: 100%;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+}
+
+.ant-btn-default:not(:disabled):not(.ant-btn-disabled):hover {
+  background: $primary-color !important;
+  border-color: $primary-color !important;
+}
+
+
+.ant-popconfirm .ant-popconfirm-buttons button{
+  width: 40px;
+}
+

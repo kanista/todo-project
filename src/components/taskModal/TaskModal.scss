@@ -1,19 +1,5 @@
 @import '../../styles/common/variable';
 
-.task-form .ant-btn{
-  background-color: $primary-color !important;
-  color: #fff !important;
-  border-color: $primary-color;
-  width: 100%;
-
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: $primary-color;
-    border-color: $primary-color;
-  }
-}
-
 .task-form{
   padding: 20px;
 }
