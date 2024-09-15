@@ -1,8 +1,41 @@
-import { Modal, Form, Input, Button } from 'antd';
-import { useEffect } from 'react';
+import {Modal, Form, Input, Button, Select, DatePicker, Slider} from 'antd';
+import {useEffect, useState} from 'react';
+import moment from 'moment';
 import './TaskModal.scss'
 
+
+const {Option} = Select;
+
 const TaskModal = ({ isModalOpen, handleCancel, handleAddTask, editingTask, form }) => {
+
+    const [percent, setPercent] = useState(0);
+
+    const TASK_CATEGORIES = [
+        { label: 'WORK', value: 'work' },
+        { label: 'PERSONAL', value: 'personal' },
+        { label: 'OTHERS', value: 'others' }
+    ];
+
+    const disablePastDates = (current) => {
+        return current && current < moment().startOf('day');
+    };
+
+    const handleSliderChange = (value) => {
+        setPercent(value);
+    };
+    const increase = () => {
+        setPercent((prevPercent) => {
+            const newPercent = prevPercent + 10;
+            return newPercent > 100 ? 100 : newPercent;
+        });
+    };
+
+    const decline = () => {
+        setPercent((prevPercent) => {
+            const newPercent = prevPercent - 10;
+            return newPercent < 0 ? 0 : newPercent;
+        });
+    };
 
     useEffect(() => {
         if (editingTask) {
@@ -39,6 +72,41 @@ const TaskModal = ({ isModalOpen, handleCancel, handleAddTask, editingTask, form
                     rules={[{ required: true, message: 'Please enter task description!' }]}
                 >
                     <Input placeholder="Enter task description" />
+                </Form.Item>
+
+                <Form.Item
+                    label="Category"
+                    name="category"
+                    rules={[{ required: true, message: 'Please select a category!' }]}
+                >
+                    <Select placeholder="Select task category">
+                        {TASK_CATEGORIES.map(category => (
+                            <Option key={category.value} value={category.value}>
+                                {category.label}
+                            </Option>
+                        ))}
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    label="Progress"
+                    name="progress"
+                >
+                    <Slider
+                        min={0}
+                        max={100}
+                        value={percent}
+                        onChange={handleSliderChange}
+                        style={{ width: '100%'}}
+                    />
+                </Form.Item>
+
+                <Form.Item
+                    label="Due Date"
+                    name="dueDate"
+                    rules={[{ required: true, message: 'Please select a due date!' }]}
+                >
+                    <DatePicker placeholder="Select due date" style={{ width: '100%' }} disabledDate={disablePastDates}/>
                 </Form.Item>
 
                 <Form.Item>

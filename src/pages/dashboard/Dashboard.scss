@@ -1,12 +1,19 @@
 @import '../../styles/common/variable';
 
-.ant-layout .ant-layout-sider-trigger {
-  background-color: #0C111D;
+
+.ant-layout .ant-layout-sider-children {
+  background-color: $menu-background-color;
+  height: 100vh;
+  position: fixed;
+}
+.ant-layout .ant-layout-sider-trigger,.ant-layout .ant-layout-sider{
+  background-color: $menu-background-color !important ;
 }
 
 body{
   margin: 0;
 }
+
 
 .search-container ::placeholder {
      color: white;
@@ -29,6 +36,13 @@ body{
 .ant-menu-item {
   color: white;
 }
+
+.ant-layout-content .dashboard-container{
+  height: 100vh;
+}
+//.ant-layout-content{
+//  height: 100vh;
+//}
 
 .ant-checkbox-checked .ant-checkbox-inner{
   background-color: $primary-color;
@@ -68,11 +82,12 @@ body{
   padding: 8px 16px;
   border-radius: 8px;
   gap: 8px;
-  width: 168px;
-  height: 40px;
+  //width: 168px;
+  //height: 40px;
   background-color: #d0d5dd;
   margin-bottom: 20px;
   margin-top: 20px;
+  display: inline-block;
 }
 
 
@@ -148,7 +163,12 @@ body{
   flex-direction: column;
 }
 
-@media (max-width: 400px) {
+//.dashboard-container{
+//  background-color: $primary-color;
+//  height: 100vh;
+//}
+
+@media (max-width: 768px) {
   .dashboard-title {
     flex-direction: column;
     align-items: flex-start;
@@ -160,9 +180,15 @@ body{
 
   .dashboard-title button {
     width: 100%;
-    max-width: 200px;
     align-self: center;
-    margin: 10px;
+    margin-top: 10px;
   }
+
+  .ant-layout .ant-layout-sider
+  {
+    background-color: $menu-background-color !important;
+  }
+
+
 }
 

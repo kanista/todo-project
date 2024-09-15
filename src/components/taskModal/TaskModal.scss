@@ -1,7 +1,7 @@
 @import '../../styles/common/variable';
 
 .task-form .ant-btn{
-  background-color: $primary-color;
+  background-color: $primary-color !important;
   color: #fff !important;
   border-color: $primary-color;
   width: 100%;
@@ -25,3 +25,9 @@
   font-weight: bold;
 }
 
+.ant-slider .ant-slider-track{
+  background-color: $primary-color !important;
+}
+.ant-slider .ant-slider-handle::after {
+  box-shadow: 0 0 0 2px $primary-color !important;
+}

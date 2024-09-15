@@ -42,7 +42,7 @@ const Dashboard = () => {
             setTasks(updatedTasks);
             setEditingTask(null);
         } else {
-            setTasks([...tasks, { ...values, id: Date.now(), completed: false }]);
+            setTasks([...tasks, { ...values, id: Date.now(), completed: false,isImportant :false }]);
         }
 
         form.resetFields();
@@ -112,7 +112,6 @@ const Dashboard = () => {
                     collapsible
                     collapsed={collapsed}
                     onCollapse={setCollapsed}
-                    style={{ height: '100vh', backgroundColor: '#0C111D',width:'360px'}}
                     breakpoint="lg"
                 >
                     <div style={{padding: '10px'}}>

@@ -1,44 +1,165 @@
 @import '../../styles/common/variable';
+//
+//.task-item{
+//  display: flex;
+//  align-items: center;
+//  justify-content: space-between;
+//  padding: 8px 16px 8px 16px;
+//  height: 64px;
+//  width: 100%;
+//  background-color: #ECEEF1;
+//  border-radius: 8px;
+//  margin-bottom: 10px;
+//
+//  @media (max-width: 400px) {
+//    flex-direction: column;
+//    height: auto;
+//    padding: 12px;
+//  }
+//}
+//
+//.task-description {
+//  display: inline-block;
+//  max-width: 700px;
+//  word-wrap: break-word;
+//  overflow: hidden;
+//
+//  @media (max-width: 400px) {
+//    max-width: 100%;
+//  }
+//}
+//
+//.ant-btn-primary{
+//  background-color: $primary-color !important;
+//  color: #fff !important;
+//  border-color: $primary-color !important;
+//
+//  &:hover,
+//  &:focus,
+//  &:active {
+//    background-color: $primary-color !important;
+//    border-color: $primary-color !important;
+//  }
+//}
+//
 
-.task-item{
+.task-item-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 8px 16px 8px 16px;
-  height: 64px;
-  width: 100%;
+  padding: 10px;
+  border: 1px solid transparent; /* To simulate table row borders */
   background-color: #ECEEF1;
   border-radius: 8px;
   margin-bottom: 10px;
+  //flex-wrap: wrap;
+}
 
-  @media (max-width: 400px) {
-    flex-direction: column;
-    height: auto;
-    padding: 12px;
+.task-item-checkbox {
+  flex: 0 0 5%; /* Fixed width for the checkbox */
+  display: flex;
+  justify-content: center;
+}
+
+.task-item-content {
+  flex: 0 0 30%; /* Title and description take 40% of the width */
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.task-item-progress {
+  flex: 0 0 15%; /* Title and description take 40% of the width */
+  text-align: center;
+}
+.task-item-category {
+  flex: 0 0 15%; /* Category column takes 20% of the width */
+  text-align: center;
+}
+
+.task-item-due-date {
+  flex: 0 0 15%; /* Due date column takes 15% of the width */
+  text-align: center;
+}
+
+.task-item-actions {
+  flex: 0 0 20%; /* Actions column takes 20% of the width */
+  display: flex;
+  justify-content: center;
+  text-align: right;
+  gap: 10px;
+}
+
+/* Optional: Styling for hover effect */
+.task-item-row:hover {
+  cursor: pointer;
+  border: 1px solid #d9d9d9;
+}
+.task-item-category {
+  font-weight:bold;
+  padding: 5px 10px;
+  border-radius: 8px;
+  display: inline-block; // Ensures the background color wraps around the content, not the full width of the parent
+
+  &.personal {
+    background-color: rgba(127, 86, 217, 0.2);
+    color: #7F56D9;
+  }
+
+  &.work {
+    background-color: rgba(255, 140, 0, 0.2);
+    color: #ff8c00;
+  }
+
+  &.others {
+    background-color: rgba(60, 179, 113, 0.2);
+    color: #3CB371;
   }
 }
 
-.task-description {
-  display: inline-block;
-  max-width: 700px;
-  word-wrap: break-word;
-  overflow: hidden;
-
-  @media (max-width: 400px) {
-    max-width: 100%;
+/* Responsive Design */
+@media (max-width: 767px) {
+  .task-item-row {
+    flex-direction: column; /* Stacks items vertically on small screens */
+    align-items: flex-start; /* Aligns items to the start of the row */
   }
+
+  .task-item-checkbox,
+  .task-item-content,
+  .task-item-category,
+  .task-item-actions ,
+  .task-item-due-date,
+  .task-item-progress
+  {
+    flex: 0 0 auto; /* Allow items to take their natural width */
+    width: 100%; /* Ensures each item takes full width in column layout */
+    padding: 5px 0; /* Adds vertical padding for spacing */
+    margin-top: 10px;
+  }
+
+  .task-item-content {
+    margin-left: 0;
+  }
+  .task-item-due-date {
+    text-align: left;
+  }
+
+  .task-item-actions , .task-item-progress{
+    justify-content: center;
+  }
+
 }
 
-.ant-btn-primary{
-  background-color: $primary-color !important;
-  color: #fff !important;
-  border-color: $primary-color !important;
 
-  &:hover,
-  &:focus,
-  &:active {
-    background-color: $primary-color !important;
-    border-color: $primary-color !important;
-  }
-}
+//.ant-btn-primary{
+//  background-color: $primary-color !important;
+//  color: #fff !important;
+//  border-color: $primary-color !important;
+//
+//  &:hover,
+//  &:focus,
+//  &:active {
+//    background-color: $primary-color !important;
+//    border-color: $primary-color !important;
+//  }
+//}
 
