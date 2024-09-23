@@ -1,31 +1,34 @@
 import { Button, Form, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import './login.scss';
+import authService from "../../services/authService";
 
 const Login = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
 
-    const onFinish = (values) => {
-        const { email, password } = values;
+    const onFinish = async (values) => {
+        try {
+            const response = await authService.login(values);
 
-        const storedUser = JSON.parse(localStorage.getItem("user"));
+            if (response.status===200) {
+                message.success(response.message);
 
-        if (storedUser) {
-
-            if (email === storedUser.email && password === storedUser.password) {
-                message.success("Login successful!");
-
-                // Save login status to local storage (for dashboard access)
+                // Save login status or token
                 localStorage.setItem("isLoggedIn", true);
 
-                // Redirect to dashboard
+                // Redirect to the dashboard
                 navigate("/dashboard");
+            } else if (response.status === 404) {
+                message.warning(response.data || "User not found.");
+            } else if (response.status === 401) {
+                message.error(response.data || "Incorrect password.");
             } else {
-                message.error("Invalid email or password!");
+                message.error(response.data || "Login failed.");
             }
-        } else {
-            message.error("No user found. Please register first.");
+
+        } catch (error) {
+            message.error("An unexpected error occurred. Please try again.");
         }
     };
 

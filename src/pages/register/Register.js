@@ -1,12 +1,13 @@
 import { Button, Form, Input, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import './Register.scss';
+import authService from "../../services/authService";
 
 const Register = () => {
     const [form] = Form.useForm();
     const navigate = useNavigate();
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         const { name, email, password, confirm_password } = values;
 
         if (password !== confirm_password) {
@@ -14,16 +15,26 @@ const Register = () => {
             return;
         }
 
-        const userData = {
-            name,
-            email,
-            password,
-        };
+        console.log(values);
+        try {
+            const response = await authService.register(values);
+            console.log(response);
 
-        localStorage.setItem("user", JSON.stringify(userData));
-        message.success("Registration successful!");
+            // Check if the registration was successful
+            if (response.success) {
+                message.success(response.message);
+                navigate("/login"); // Redirect to login on successful registration
+            } else if (response.status === 400) {
+                // Handle a 400 Bad Request (e.g., email already exists)
+                message.warning(response.message || "Email already exists.");
+            } else {
+                // Handle any other error statuses
+                message.error(response.message || "Registration failed.");
+            }
+        } catch (error) {
+            message.error("An unexpected error occurred. Please try again.");
+        }
 
-        navigate("/login");
     };
 
     return (
