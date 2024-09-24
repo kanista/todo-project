@@ -12,19 +12,20 @@ const Login = () => {
             const response = await authService.login(values);
 
             if (response.status===200) {
-                message.success(response.message);
+                message.success(response.data.message);
 
                 // Save login status or token
                 localStorage.setItem("isLoggedIn", true);
+                localStorage.setItem("token",response.data.token);
 
                 // Redirect to the dashboard
                 navigate("/dashboard");
             } else if (response.status === 404) {
-                message.warning(response.data || "User not found.");
+                message.warning(response.data.message || "User not found.");
             } else if (response.status === 401) {
-                message.error(response.data || "Incorrect password.");
+                message.error(response.data.message || "Incorrect password.");
             } else {
-                message.error(response.data || "Login failed.");
+                message.error(response.data.message || "Login failed.");
             }
 
         } catch (error) {

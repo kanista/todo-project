@@ -18,18 +18,18 @@ const Register = () => {
         console.log(values);
         try {
             const response = await authService.register(values);
-            console.log(response);
-
+            console.log(response.status);
             // Check if the registration was successful
-            if (response.success) {
-                message.success(response.message);
-                navigate("/login"); // Redirect to login on successful registration
+            if (response.status === 200) {
+                console.log(response.data);
+                message.success(response.data); // Show success message
+                navigate("/login"); // Redirect after successful registration
             } else if (response.status === 400) {
-                // Handle a 400 Bad Request (e.g., email already exists)
-                message.warning(response.message || "Email already exists.");
+                console.log(response.data);
+                message.warning(response.data || "Email already exists."); // Show error if email exists
             } else {
-                // Handle any other error statuses
-                message.error(response.message || "Registration failed.");
+                console.log(response.data);
+                message.error(response.data || "Registration failed."); // Show general error
             }
         } catch (error) {
             message.error("An unexpected error occurred. Please try again.");

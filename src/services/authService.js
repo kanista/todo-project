@@ -7,12 +7,8 @@ const login=async (loginDto)=>{
             email: loginDto.email,
             password: loginDto.password
         });
-        if(response.data.token){
-            localStorage.setItem("token",response.data.token);
-            return response.data;
-        }else{
-            throw new Error("login Failed");
-        }
+        console.log(response);
+        return response;
     }catch(error){
         console.log(error);
         return error.response;
@@ -25,9 +21,10 @@ const register=async (registerDto)=>{
             email: registerDto.email,
             password: registerDto.password,
             confirmPassword: registerDto.confirmPassword,
-            username: registerDto.username,
+            username: registerDto.name,
         });
-        return response.data;
+        console.log(response);
+        return response;
     }catch(error){
         console.log(error);
         return error.response;
